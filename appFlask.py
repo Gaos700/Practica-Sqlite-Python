@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, flash
 
 import sqlite3
 
@@ -6,6 +6,8 @@ conexion = sqlite3.connect('test.bd') #conectamos con la base de datos
 cursor = conexion.cursor() #creamos un cursor para ejecutar comandos sql
 
 app = Flask(__name__, static_folder='static', template_folder='templates') #creamos la aplicacion flask
+
+app.secret_key = 'chibakutensei' #clave secreta para las sesiones
 
 admin = {"goat" : "rasengan"} #diccionario con el usuario y contraseña del administrador
 
@@ -28,7 +30,6 @@ def login():
         return render_template('login.html', error = error) #renderiza el template login.html
 @app.route('/add_product', methods = ['POST']) #ruta para agregar productos con el metdo post
 def add_product():
-    message = None
     conexion = sqlite3.connect('test.db') #conectamos con la base de datos
     cursor = conexion.cursor() #creamos un cursor para ejecutar comandos sql
     if request.method == 'POST':
@@ -43,9 +44,12 @@ def add_product():
         cursor.execute('INSERT INTO productos (nombre, descripcion, id_color, id_talla) VALUES (?,?,?,?)', (nombre, descripcion, id_color, id_talla,))
         conexion.commit()
         print('Datos ingresados correctamente')
+
+        flash('Datos ingresados correctamente')
+        return redirect(url_for('hello_world'))
         
 
-    return redirect(url_for('hello_world')) #redirige a la ruta home def hello_world
+    return render_template('home.html') #redirige a la ruta home def hello_world
 
 
 if __name__ == '__main__':

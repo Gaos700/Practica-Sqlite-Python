@@ -62,9 +62,15 @@
         </select>
       </div>
       <button type="submit">Agregar Producto</button>
-      <p>{{message}}</p>
     </form>
-    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p style="color: green;">{{message}}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
     
 
 

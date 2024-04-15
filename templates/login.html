@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    {% if error %}
+        <p style=" color: red"> {{ error }}</p>
+    {% endif %}
+    <form method="POST"> <!-- esto es para que se envie por post y no por get -->
+        <label for= "username">Username</label> <!-- esto es para que se vea el nombre de usuario-->
+        <input type="text" name="username" id="username" required>
+        <label for="password">Password</label>
+        <input type="text" name="password" id = "password" required>
+        <input type="submit" value="Login">
+    </form>
+    
+</body>
+</html>

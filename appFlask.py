@@ -7,7 +7,7 @@ cursor = conexion.cursor() #creamos un cursor para ejecutar comandos sql
 
 app = Flask(__name__, static_folder='static', template_folder='templates') #creamos la aplicacion flask
 
-app.secret_key = 'chibakutensei' #clave secreta para las sesiones
+app.secret_key = 'chibakutensei' #clave secreta para las sesiones para que funciones "flash"
 
 admin = {"goat" : "rasengan"} #diccionario con el usuario y contraseña del administrador
 
@@ -45,11 +45,8 @@ def add_product():
         conexion.commit()
         print('Datos ingresados correctamente')
 
-        flash('Datos ingresados correctamente')
-        return redirect(url_for('hello_world'))
-        
-
-    return render_template('home.html') #redirige a la ruta home def hello_world
+        flash('Datos ingresados correctamente') #mensaje de exito
+        return redirect(url_for('hello_world')) #redirige a la ruta hello_world    
 
 
 if __name__ == '__main__':

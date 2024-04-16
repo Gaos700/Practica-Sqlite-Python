@@ -13,7 +13,13 @@ admin = {"goat" : "rasengan"} #diccionario con el usuario y contraseña del admi
 
 @app.route('/home')
 def hello_world():
-    return render_template('home.html')
+    conexion = sqlite3.connect('test.db')
+    cursor = conexion.cursor()
+    cursor.execute('SELECT p.nombre, p.descripcion, c.nombre, t.nombre FROM productos p JOIN colores c ON p.id_color = c.id JOIN tallas t ON p.id_talla = t.id')
+    productos = cursor.fetchall()
+    print(productos)
+
+    return render_template('home.html', products = productos)
 
 @app.route('/login', methods=['GET','POST']) #ruta para el login con los metodos GET y POST    
 def login():

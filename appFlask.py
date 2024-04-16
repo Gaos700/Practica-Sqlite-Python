@@ -15,7 +15,7 @@ admin = {"goat" : "rasengan"} #diccionario con el usuario y contraseña del admi
 def hello_world():
     conexion = sqlite3.connect('test.db')
     cursor = conexion.cursor()
-    cursor.execute('SELECT p.nombre, p.descripcion, c.nombre, t.nombre FROM productos p JOIN colores c ON p.id_color = c.id JOIN tallas t ON p.id_talla = t.id')
+    cursor.execute('SELECT p.id, p.nombre, p.descripcion, c.nombre, t.nombre FROM productos p JOIN colores c ON p.id_color = c.id JOIN tallas t ON p.id_talla = t.id')
     productos = cursor.fetchall()
     print(productos)
 
@@ -52,7 +52,18 @@ def add_product():
         print('Datos ingresados correctamente')
 
         flash('Datos ingresados correctamente') #mensaje de exito
-        return redirect(url_for('hello_world')) #redirige a la ruta hello_world    
+        return redirect(url_for('hello_world')) #redirige a la ruta hello_world
+@app.route('/edit') #ruta para editar productos
+def edit_product():
+    return redirect(url_for('hello_world'))
+
+@app.route('/delete/<string:id>') #la ruta es /delete + <string:id> que te devuelve el id que manda el mismo boton {{producto.0}}
+def delete_product(id): #Ingresamos el id a la funcion para operar con el
+    conexion = sqlite3.connect('test.db')
+    cursor = conexion.cursor()
+    cursor.execute('DELETE FROM  productos WHERE id= ?', (id, ))
+    conexion.commit()
+    return redirect(url_for('hello_world'))
 
 
 if __name__ == '__main__':

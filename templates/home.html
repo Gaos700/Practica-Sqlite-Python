@@ -86,11 +86,13 @@
     <tbody>
       {% for producto in products %}
         <tr>
-          <td>{{ producto.0 }}</td>
           <td>{{ producto.1 }}</td>
-          <td>{{ producto.2}}</td>
+          <td>{{ producto.2 }}</td>
           <td>{{ producto.3}}</td>
-          <td></td>
+          <td>{{ producto.4}}</td>
+          <td><a href="/edit">edit</a> 
+              <a href="/delete/{{producto.0}}" >delete</a> 
+          </td>
         </tr>
       {% endfor %}
     </tbody>

@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
-
+import time
 import sqlite3
 
 conexion = sqlite3.connect('test.bd') #conectamos con la base de datos
@@ -53,9 +53,35 @@ def add_product():
 
         flash('Datos ingresados correctamente') #mensaje de exito
         return redirect(url_for('hello_world')) #redirige a la ruta hello_world
-@app.route('/edit') #ruta para editar productos
-def edit_product():
-    return redirect(url_for('hello_world'))
+@app.route('/edit/<id>') #ruta para editar productos
+def edit_product(id):
+    conexion = sqlite3.connect('test.db')
+    cursor = conexion.cursor()
+    cursor.execute('SELECT * FROM  productos WHERE id = ?', (id,))
+    producto = cursor.fetchall()
+    conexion.commit()
+    return render_template('editform.html', product = producto[0])
+
+@app.route('/update/<id>', methods= ['POST'])
+def update_product(id):
+    conexion = sqlite3.connect('test.db')
+    cursor = conexion.cursor()
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        descripcion = request.form['descripcion']
+        color = request.form['color']
+        talla = request.form['talla']
+        cursor.execute('SELECT id FROM colores WHERE nombre = ?', (color,))
+        id_color = cursor.fetchone()[0]
+        cursor.execute('SELECT id FROM tallas WHERE nombre = ?', (talla,))
+        id_talla = cursor.fetchone()[0]
+        cursor.execute('''UPDATE productos SET nombre =?, descripcion = ?, id_color = ?, id_talla = ? WHERE id = ?''', (nombre, descripcion, id_color, id_talla, id, ))
+        conexion.commit()
+        flash('Datos actualizados correctamente, espere mientras redirigimos a la pagina principal')
+        time.sleep(3)
+        return redirect(url_for('hello_world'))
+
+
 
 @app.route('/delete/<string:id>') #la ruta es /delete + <string:id> que te devuelve el id que manda el mismo boton {{producto.0}}
 def delete_product(id): #Ingresamos el id a la funcion para operar con el

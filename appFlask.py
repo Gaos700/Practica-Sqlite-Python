@@ -51,7 +51,7 @@ def add_product():
         conexion.commit()
         print('Datos ingresados correctamente')
 
-        flash('Datos ingresados correctamente') #mensaje de exito
+        flash('Datos ingresados!!!') #mensaje de exito
         return redirect(url_for('hello_world')) #redirige a la ruta hello_world
 @app.route('/edit/<id>') #ruta para editar productos
 def edit_product(id):

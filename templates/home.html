@@ -27,15 +27,15 @@
    <div class="form-container " style="flex: 0 0 33%;" >
     <form action="add_product" method="POST">
       <div class="form-group">
-        <label for="nombreForm">Nombre</label>
+        <label for="nombreForm" style="align-items: center;display: flex;justify-content: center;">Nombre</label>
         <input type="text" class="form-control" id="nombreForm" name="nombre" placeholder="Nombre del producto">       
       </div>
       <div class="form-group">
-        <label for="descripcionForm">Descripcion</label>
+        <label for="descripcionForm" style="align-items: center;display: flex;justify-content: center;">Descripcion</label>
         <textarea class="form-control" name="descripcion" id="descripcionForm" rows="3"></textarea>
       </div>
       <div class="form-group">
-        <label for="colorForm">Color</label>
+        <label for="colorForm" style="align-items: center;display: flex;justify-content: center;">Color</label>
         <select class="form-control" name="color" id="colorForm">
           <option >azul</option>
           <option >blanco</option>
@@ -46,8 +46,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="tallaForm" style="text-align: center;">Tallas</label>
-        <select class="form-control" name="talla" id="tallaForm" style="text-align: center;">
+        <label for="tallaForm" style="align-items: center;display: flex;justify-content: center;">Tallas</label>
+        <select class="form-control" name="talla" id="tallaForm">
           <option >S</option>
           <option >M</option>
           <option >L</option>
@@ -69,7 +69,7 @@
       {% endif %}
     {% endwith %}
   </div>
-  <div class="productos-container" style="flex: 0 0 66%;">
+  <div class="productos-container" style="flex: 0 0 66%;margin-top: 50px; ">
     <table class="table table-striped-columns">
     <thead>
       <tr>
@@ -87,7 +87,9 @@
           <td>{{ producto.2 }}</td>
           <td>{{ producto.3}}</td>
           <td>{{ producto.4}}</td>
-          <td><a href="/edit/{{producto.0}}">edit</a> 
+          <td>
+              <i class="fa-duotone fa-trash"></i>
+              <a href="/edit/{{producto.0}}">edit</a> 
               <a href="/delete/{{producto.0}}" >delete</a> 
           </td>
         </tr>

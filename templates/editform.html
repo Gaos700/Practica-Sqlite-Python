@@ -1,28 +1,48 @@
+{% extends 'layout.html' %}
 {% block body %}
-<form action="/update/{{product.0}}" method="POST">
-    <input type="text" name="nombre" placeholder="Nombre" value="{{product.1}}">
-    <input type="text" name="descripcion" placeholder="Descripcion" value="{{product.2}}">
-    <select name="color" id="idcolor">
-        <option >azul</option>
-        <option >blanco</option>
-        <option >negro</option>
-        <option >rojo</option>
-        <option>verde</option>
-        <option>morado</option> 
-    </select>
-    <select name="talla" id="idcolor">
-        <option >S</option>
-        <option >M</option>
-        <option >L</option>
-        <option >XL</option>
-        <option>XXL</option>
-        <option>XXXL</option> 
-    </select>
-    <button type="submit">
-        Actualizar
-    </button>
-    
-</form>
+
+
+  <div class="container" style="display: flex; justify-content: center;align-items: center; height: auto;">
+    <div class="form-container" style="padding: 20px; border-radius: 10px;">
+      <form action="/update/{{product.0}}" method="POST"></form>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <input type="text" name="nombre" placeholder="Nombre" value="{{product.1}}">
+      </div>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <input type="text" name="descripcion" placeholder="Descripcion" value="{{product.2}}">
+      </div>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <select name="color" id="idcolor">
+            <option >azul</option>
+            <option >blanco</option>
+            <option >negro</option>
+            <option >rojo</option>
+            <option>verde</option>
+            <option>morado</option> 
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <select class="form-group" name="talla" id="idcolor">
+            <option >S</option>
+            <option >M</option>
+            <option >L</option>
+            <option >XL</option>
+            <option>XXL</option>
+            <option>XXXL</option> 
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <input type="submit" value="Actualizar" style="width: 70%;">
+
+      </div>
+      
+    </form>
+
+
+    </div>
+
+  </div>
+
   {% with messages = get_flashed_messages() %} 
     {% if messages %}
       {% for message in messages %}

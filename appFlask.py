@@ -90,9 +90,11 @@ def delete_product(id): #Ingresamos el id a la funcion para operar con el
     cursor.execute('DELETE FROM  productos WHERE id= ?', (id, ))
     conexion.commit()
     return redirect(url_for('hello_world'))
-@app.route('/extract')
+@app.route('/extract_product',methods = ['POST', 'GET'])
 def extract_product():
-    return 'Se llegó bien a la ruta'
+    if request.method == 'POST'or 'GET':
+
+        return render_template('extraer.html')
 
 
 if __name__ == '__main__':

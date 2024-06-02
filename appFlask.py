@@ -92,7 +92,12 @@ def delete_product(id): #Ingresamos el id a la funcion para operar con el
     return redirect(url_for('hello_world'))
 @app.route('/extract_product',methods = ['POST', 'GET'])
 def extract_product():
+    conexion = sqlite3.connect('test.db')
+    cursor = conexion.cursor()
+    cursor.execute('SELECT p.id, p.nombre, p.descripcion, c.nombre, t.nombre FROM productos p JOIN colores c ON p.id_color = c.id JOIN tallas t ON p.id_talla = t.id')
+    productos = cursor.fetchall()
     if request.method == 'POST'or 'GET':
+        print(productos)
 
         return render_template('extraer.html')
 
